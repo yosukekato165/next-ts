@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^7.0.16",
     "axios": "^0.21.1",
     "gsap": "npm:@gsap/member@^3.7.1",
     "next": "11.0.1",

@@ -1,44 +1,45 @@
-import { useEffect } from "react";
-import { WebGLRenderer, Scene, PerspectiveCamera } from "three";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Mesh } from "three";
+import React, { useRef } from "react";
+import Controls from "../utils/Controls";
+import styles from "styles/Home.module.scss";
 
-export const Three: React.FC = () => {
-  const onCanvasLoaded = (canvas: HTMLCanvasElement) => {
-    if (!canvas) {
-      return;
-    }
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    // init scene
-    const scene = new Scene();
-    const camera = new PerspectiveCamera(
-      75,
-      canvas.clientWidth / canvas.clientHeight,
-      0.1,
-      1000
-    );
-    const renderer = new WebGLRenderer({ canvas: canvas, antialias: true });
-    renderer.setClearColor("#1d1d1d");
-    renderer.setSize(width, height);
-
-    // resize
-    window.addEventListener("resize", () => handleResize({ camera, renderer }));
-
-    renderer.render(scene, camera);
-  };
-
-  // handle resize
-  const handleResize = ({ camera, renderer }) => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    camera.aspect = width / width;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, width);
-  };
-  useEffect(() => {
-    return () => window.removeEventListener("resize", () => handleResize);
+const Thing = () => {
+  const ref = useRef({} as Mesh);
+  useFrame(() => {
+    ref.current.rotation.x += 0.01
+    ref.current.rotation.z += 0.01
   });
-
-  return <canvas ref={onCanvasLoaded} />;
+  return (
+    <mesh
+      ref={ref}
+      onClick={(e) => console.log("click")}
+      onPointerOver={(e) => console.log("hover")}
+      onPointerOut={(e) => console.log("unhover")}
+    >
+      <planeBufferGeometry attach="geometry" args={[1, 1]} />
+      <meshPhongMaterial
+        attach="material"
+        color="hotpink"
+        opacity={1}
+        transparent
+      />
+      <boxGeometry args={[1, 1, 1]} />
+    </mesh>
+  );
 };
+
+export const Three: React.FC = React.memo(() => {
+  return (
+    <div className={styles.bgbk} style={{ width: "100vw", height: "100vh" }} >
+      <Canvas>
+        <ambientLight />
+        {/* <directionalLight/> */}
+        <pointLight position={[10, 10, 10]} />
+        <Thing />
+        <Controls />
+        <gridHelper />
+      </Canvas>
+    </div>
+  );
+});

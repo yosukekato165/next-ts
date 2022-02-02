@@ -35,6 +35,7 @@ export const Three: React.FC = React.memo(() => {
       <Canvas>
         <ambientLight />
         {/* <directionalLight/> */}
+        <spotLight intensity={0.5} position={[10, 20, 30]} />
         <pointLight position={[10, 10, 10]} />
         <Thing />
         <Controls />

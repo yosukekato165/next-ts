@@ -14,7 +14,7 @@ export const Title = () => {
   });
   return (
     <>
-      <h1 id="title" className={styles.title}>
+      <h1 id="title" className={`${styles.white} ${styles.title}`}>
         Welcome to <a href="https://nextjs.org">Next.js!</a>
       </h1>
       <Text_animation />

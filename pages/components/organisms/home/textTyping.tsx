@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import styles from "styles/Home.module.scss";
 
 export const TextTyping = (props) => {
   const textRef = useCallback((node) => {
@@ -35,7 +36,10 @@ export const TextTyping = (props) => {
   };
 
   return (
-    <p ref={textRef} className="animation-text">
+    <p
+      ref={textRef}
+      className={`animation-text ${styles.white} ${styles.title}`}
+    >
       {props.children}
     </p>
   );

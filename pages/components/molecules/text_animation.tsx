@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styles from "styles/Home.module.scss";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 
@@ -6,7 +7,7 @@ export const Text_animation = () => {
   gsap.registerPlugin(TextPlugin);
 
   const text = {
-    title: "title",
+    title: "Yosuke Kato",
   };
 
   const splitedText = text.title.split("");
@@ -34,7 +35,9 @@ export const Text_animation = () => {
 
   return (
     <>
-      <h2 id="subtitle">{splitedTextInSpan}</h2>
+      <h2 id="subtitle" className={styles.white}>
+        {splitedTextInSpan}
+      </h2>
     </>
   );
 };
